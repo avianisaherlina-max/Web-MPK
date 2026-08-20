@@ -6,15 +6,17 @@
     <title>Dokumentasi Organisasi MPK</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --primary-color: #ffbb00; /* Dominan Kuning */
-            --text-color: #ffffff;
-            --text-muted: #aaaaaa;
+            --bg-color: #0d0d0d;
+            --card-bg: #181818;
+            --primary-color: #ffd700; /* Kuning Emas Elegan */
+            --primary-glow: rgba(255, 215, 0, 0.2);
+            --text-color: #f1f1f1;
+            --text-muted: #999999;
+            --border-color: #2a2a2a;
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -22,8 +24,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Latar belakang dengan nuansa gelap elegan */
-            background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), 
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(13, 13, 13, 0.85), rgba(13, 13, 13, 0.95)), 
                               url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
@@ -34,91 +36,161 @@
             width: 100%;
             max-width: 480px;
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title {
             text-align: center;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             color: var(--primary-color);
-            margin-bottom: 5px;
+            letter-spacing: 1px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin: 0;
+            color: #ffffff;
+            font-weight: 700;
         }
 
-        p {
-            font-size: 0.9rem;
+        .subtitle {
+            font-size: 0.85rem;
             color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 20px;
             line-height: 1.4;
         }
 
-        /* Navigasi Menu */
+        /* Navigasi Menu Modern */
         .menu-nav {
             display: flex;
-            justify-content: space-around;
-            border-bottom: 2px solid #333;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            justify-content: space-between;
+            background: #111111;
+            padding: 6px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
         }
 
         .menu-btn {
-            background: none;
+            background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
-            padding: 5px 8px;
-            transition: 0.3s;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+
+        .menu-btn span {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.7;
         }
 
         .menu-btn.active {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
+            background: var(--primary-color);
+            color: #000000;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* Konten Tab */
+        .menu-btn.active span {
+            opacity: 1;
+        }
+
+        /* Konten Tab dengan Animasi Masuk */
         .tab-content {
             display: none;
-            text-align: left;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .card {
-            background: #252525;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
+            background: #202020;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #2d2d2d;
+            margin-bottom: 15px;
         }
 
         .card h3 {
             color: var(--primary-color);
             margin-top: 0;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
+            font-size: 1.05rem;
+            border-bottom: 1px solid #2d2d2d;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* List Biodata & Komisi */
+        .card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        /* Tombol Tautan Kustom */
+        .link-btn {
+            display: block;
+            background: linear-gradient(135deg, #ffd700, #cca600);
+            color: #000000;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+            margin-top: 15px;
+        }
+
+        .link-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Styling Biodata & Komisi */
         .biodata-section {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+        }
+
+        .biodata-section:last-child {
+            margin-bottom: 0;
         }
 
         .biodata-section h4 {
             color: var(--text-color);
-            font-size: 0.95rem;
-            margin: 10px 0 5px 0;
+            font-size: 0.9rem;
+            margin: 12px 0 6px 0;
             border-left: 3px solid var(--primary-color);
             padding-left: 8px;
+            letter-spacing: 0.5px;
         }
 
         .biodata-list {
@@ -130,97 +202,107 @@
         .biodata-list li {
             font-size: 0.85rem;
             color: var(--text-muted);
-            padding: 4px 0;
-            border-bottom: 1px dashed #333;
+            padding: 6px 8px;
+            border-bottom: 1px dashed #2d2d2d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .biodata-list li span {
+        .biodata-list li:last-child {
+            border-bottom: none;
+        }
+
+        .biodata-list li span.role {
             color: var(--primary-color);
-            font-weight: bold;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>SMKS TUNAS HARAPAN PASAR KEMIS</h1>
-        <h2>Organisasi MPK</h2>
-        <p>Satu tempat untuk tautan, informasi event, dan biodata pengurus MPK.</p>
+        <div class="header-title">
+            <h1>SMKS Tunas Harapan Pasar Kemis</h1>
+            <h2>Organisasi MPK</h2>
+        </div>
+        
+        <p class="subtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
 
-        <!-- Menu Tab (4 Menu) -->
+        <!-- Navigasi Menu -->
         <div class="menu-nav">
-            <button class="menu-btn active" onclick="switchTab(event, 'beranda')">01<br>Beranda</button>
-            <button class="menu-btn" onclick="switchTab(event, 'event')">02<br>Event</button>
-            <button class="menu-btn" onclick="switchTab(event, 'tautan')">03<br>Tautan</button>
-            <button class="menu-btn" onclick="switchTab(event, 'biodata')">04<br>Biodata</button>
+            <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
+            <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
+            <button class="menu-btn" onclick="switchTab(event, 'tautan')">Tautan<span>03</span></button>
+            <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
         </div>
 
         <!-- Konten 1: Beranda -->
         <div id="beranda" class="tab-content active">
             <div class="card">
-                <h3>Selamat Datang</h3>
-                <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Di sini Anda dapat menemukan informasi tentang profil organisasi, dokumentasi kegiatan sekolah, tautan penting, dan biodata pengurus MPK.</p>
+                <h3>✨ Selamat Datang</h3>
+                <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
             </div>
         </div>
 
         <!-- Konten 2: Event Sekolah -->
         <div id="event" class="tab-content">
             <div class="card">
-                <h3>Event Sekolah Terbaru</h3>
-                <p>Daftar kegiatan dan program kerja yang diselenggarakan oleh MPK SMKS Tunas Harapan Pasar Kemis, mulai dari kegiatan akademik, pentas seni, hingga turnamen antar kelas.</p>
+                <h3>📅 Event Sekolah Terbaru</h3>
+                <p>Daftar kegiatan dan program kerja yang diselenggarakan oleh MPK SMKS Tunas Harapan Pasar Kemis, mulai dari agenda akademik, pentas seni, hingga turnamen olahraga antar kelas.</p>
             </div>
         </div>
 
         <!-- Konten 3: Tautan -->
         <div id="tautan" class="tab-content">
             <div class="card">
-                <h3>Tautan Dokumen Penting</h3>
-                <p>Silakan akses tautan di bawah ini untuk melihat Proposal dan Laporan Pertanggungjawaban (LPJ):</p>
-                <p><a href="#" target="_blank" style="color: var(--primary-color); font-weight: bold;">📁 Buka Google Drive Proposal & LPJ</a></p>
+                <h3>📁 Dokumen Penting</h3>
+                <p>Akses cepat untuk melihat Proposal kegiatan dan Laporan Pertanggungjawaban (LPJ):</p>
+                <a href="#" target="_blank" class="link-btn">Buka Google Drive Proposal & LPJ</a>
             </div>
         </div>
 
         <!-- Konten 4: Biodata -->
         <div id="biodata" class="tab-content">
             <div class="card">
-                <h3>Struktur Kepengurusan MPK</h3>
+                <h3>👑 Struktur Kepengurusan MPK</h3>
                 
                 <div class="biodata-section">
                     <h4>Pengurus Inti</h4>
                     <ul class="biodata-list">
-                        <li><span>Ketua:</span> Giyas Nabil Qurisqi</li>
-                        <li><span>Wakil Ketua:</span> Mutiara Khoirunnisa</li>
-                        <li><span>Sekretaris 1:</span> Alifia Nabila Putri</li>
-                        <li><span>Sekretaris 2:</span> Aisyah Firdasari</li>
-                        <li><span>Bendahara:</span> Gina Qolbiyatul Latifah</li>
+                        <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
+                        <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
+                        <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
+                        <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
+                        <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
                     </ul>
                 </div>
 
                 <div class="biodata-section">
                     <h4>Komisi 1</h4>
                     <ul class="biodata-list">
-                        <li>M. Andra Ary Cesanov</li>
-                        <li>Andika Dwi Kuncoro</li>
-                        <li>Yoga Aditya Pratama</li>
-                        <li>Fahrel</li>
+                        <li><span>Anggota</span> M. Andra Ary Cesanov</li>
+                        <li><span>Anggota</span> Andika Dwi Kuncoro</li>
+                        <li><span>Anggota</span> Yoga Aditya Pratama</li>
+                        <li><span>Anggota</span> Fahrel</li>
                     </ul>
                 </div>
 
                 <div class="biodata-section">
                     <h4>Komisi 2</h4>
                     <ul class="biodata-list">
-                        <li>Darrel Dewangga Arjuna</li>
-                        <li>Hilal Lee Diar Sulaeman Malik</li>
-                        <li>Alfirza Nurhidayahtulloh Arrahman</li>
+                        <li><span>Anggota</span> Darrel Dewangga Arjuna</li>
+                        <li><span>Anggota</span> Hilal Lee Diar Sulaeman Malik</li>
+                        <li><span>Anggota</span> Alfirza Nurhidayahtulloh Arrahman</li>
                     </ul>
                 </div>
 
                 <div class="biodata-section">
                     <h4>Komisi 3</h4>
                     <ul class="biodata-list">
-                        <li>Cut Annisa Syarifuddin</li>
-                        <li>Muhamad Rizik</li>
-                        <li>Aisy Galuh Khaerunnisa Putri</li>
+                        <li><span>Anggota</span> Cut Annisa Syarifuddin</li>
+                        <li><span>Anggota</span> Muhamad Rizik</li>
+                        <li><span>Anggota</span> Aisy Galuh Khaerunnisa Putri</li>
                     </ul>
                 </div>
 
@@ -229,7 +311,7 @@
 
     </div>
 
-    <!-- Script JavaScript agar Menu Bisa Ditekan & Berganti -->
+    <!-- Script JavaScript Transisi Menu -->
     <script>
         function switchTab(evt, tabName) {
             let i, tabContent, menuBtns;
