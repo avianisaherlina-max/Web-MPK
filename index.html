@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi MPK SMKS Tunas Harapan</title>
+    <style>
+        /* --- CSS Styles --- */
+        
+        /* Reset dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000; /* Latar belakang hitam */
+            color: #FFD700; /* Warna teks utama kuning */
+            line-height: 1.6;
+            /* Background image semu, bisa diganti dengan URL gambar sekolah */
+            background-image: url('https://via.placeholder.com/1920x1080/000000/FFD700?text=SMK+Background'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding-bottom: 80px; /* Ruang untuk navigasi bawah */
+        }
+
+        /* Overlay untuk menggelapkan background image agar teks terbaca */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Hitam transparan */
+            z-index: -1;
+        }
+
+        /* Container utama */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header atas */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 30px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #FFD700; /* Border logo kuning */
+            margin-bottom: 15px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 auto 15px;
+        }
+
+        .school-info {
+            font-size: 0.9rem;
+            color: #FFD700;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        h1.main-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #FFD700;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Bagian Tab Navigasi --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #FFD700;
+            padding: 15px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0.6;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+
+        .tab-btn:hover {
+            opacity: 1;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #FFD700; /* Garis bawah tab aktif kuning */
+        }
+
+        .tab-number {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+            opacity: 0.7;
+        }
+
+        /* --- Area Konten Utama --- */
+        .content-card {
+            background-color: #111; /* Kartu konten abu-abu gelap */
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        h2.card-title {
+            font-size: 1.5rem;
+        }
+
+        .page-indicator {
+            font-size: 1rem;
+        }
+
+        .card-body p {
+            color: #FFD700;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        /* Grid untuk item Beranda (Folder/Anggota) */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-item {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .info-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+
+        .info-label {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #FFD700;
+            opacity: 0.7;
+        }
+
+        /* Gaya Tautan/Event */
+        .link-item, .event-item {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .link-title, .event-title {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .link-meta, .event-meta {
+            font-size: 0.8rem;
+            color: #FFD700;
+            opacity: 0.6;
+        }
+
+        .btn-buka {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .btn-buka:hover {
+            opacity: 1;
+        }
+
+        /* Gaya Biodata */
+        .biodata-list {
+            list-style: none;
+        }
+
+        .biodata-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .bio-number {
+            width: 30px;
+            color: #FFD700;
+            opacity: 0.7;
+        }
+
+        .bio-initials {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .bio-info {
+            flex-grow: 1;
+        }
+
+        .bio-name {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .bio-jabatan {
+            font-size: 0.8rem;
+            color: #FFD700;
+            opacity: 0.6;
+        }
+
+        .link-biodata {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* --- Navigasi Bawah --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            border-top: 1px solid #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-icon {
+            color: #FFD700;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .nav-arrow {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD700;
+            cursor: pointer;
+        }
+
+        .nav-page-indicator {
+            color: #FFD700;
+            font-size: 0.9rem;
+        }
+
+        /* --- JS Classes untuk menyembunyikan/menampilkan konten --- */
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Overlay Background -->
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-logo">MPK</div>
+            <div class="school-info">SMKS TUNAS HARAPAN PASAR KEMIS · ORGANISASI RESMI</div>
+            <h1 class="main-title">Dokumentasi Organisasi MPK</h1>
+            <p class="subtitle">Satu tempat untuk tautan, informasi event, dan biodata pengurus MPK.</p>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('beranda')" id="btn-beranda">
+                <span class="tab-number">01</span>
+                Beranda
+            </button>
+            <button class="tab-btn" onclick="showTab('event')" id="btn-event">
+                <span class="tab-number">02</span>
+                Event
+            </button>
+            <button class="tab-btn" onclick="showTab('tautan')" id="btn-tautan">
+                <span class="tab-number">03</span>
+                Tautan
+            </button>
+            <button class="tab-btn" onclick="showTab('biodata')" id="btn-biodata">
+                <span class="tab-number">04</span>
+                Biodata
+            </button>
+        </div>
+
+        <!-- --- Konten: Beranda --- -->
+        <div class="content-card" id="tab-beranda">
+            <div class="card-header">
+                <h2 class="card-title">Selamat Datang</h2>
+                <span class="page-indicator">01 / 04</span>
+            </div>
+            <div class="card-body">
+                <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Di sini Anda dapat menemukan informasi tentang profil organisasi, dokumentasi kegiatan sekolah, tautan penting, dan biodata pengurus MPK.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-value">4</div>
+                        <div class="info-label">Menu Navigasi</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-value">Aktif</div>
+                        <div class="info-label">Status Organisasi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --- Konten: Event Sekolah --- -->
+        <div class="content-card hidden" id="tab-event">
+            <div class="card-header">
+                <h2 class="card-title">Event Sekolah</h2>
+                <span class="page-indicator">02 / 04</span>
+            </div>
+            <div class="card-body">
+                <p>Berikut adalah daftar kegiatan/event sekolah yang telah dan akan dilaksanakan oleh SMKS Tunas Harapan.</p>
+                
+                <div class="event-list">
+                    <div class="event-item">
+                        <div>
+                            <div class="event-title">Lomba Agustusan 2026</div>
+                            <div class="event-meta">Agustus 2026 · Partisipasi Siswa</div>
+                        </div>
+                        <a href="#" class="btn-buka">Lihat Foto →</a>
+                    </div>
+                    <div class="event-item">
+                        <div>
+                            <div class="event-title">MPLS Tahun 2026/2027</div>
+                            <div class="event-meta">Juli 2026 · Penyambutan Siswa Baru</div>
+                        </div>
+                        <a href="#" class="btn-buka">Lihat Foto →</a>
+                    </div>
+                    <div class="event-item">
+                        <div>
+                            <div class="event-title">Peringatan Hari Guru Nasional</div>
+                            <div class="event-meta">November 2026 · Apresiasi Guru</div>
+                        </div>
+                        <a href="#" class="btn-buka">Lihat Foto →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --- Konten: Tautan --- -->
+        <div class="content-card hidden" id="tab-tautan">
+            <div class="card-header">
+                <h2 class="card-title">Tautan Penting</h2>
+                <span class="page-indicator">03 / 04</span>
+            </div>
+            <div class="card-body">
+                <p>Silakan akses dokumen terkait program kerja, proposal, dan laporan pertanggungjawaban (LPJ) MPK melalui tautan Google Drive di bawah ini.</p>
+                
+                <div class="link-list">
+                    <div class="link-item">
+                        <div>
+                            <div class="link-title">Proposal Kegiatan MPK</div>
+                            <div class="link-meta">Folder Google Drive</div>
+                        </div>
+                        <a href="GANTI_DENGAN_LINK_GOOGLE_DRIVE_PROPOSAL_ANDA" class="btn-buka" target="_blank">Buka →</a>
+                    </div>
+                    <div class="link-item">
+                        <div>
+                            <div class="link-title">Laporan Pertanggungjawaban (LPJ)</div>
+                            <div class="link-meta">Folder Google Drive</div>
+                        </div>
+                        <a href="GANTI_DENGAN_LINK_GOOGLE_DRIVE_LPJ_ANDA" class="btn-buka" target="_blank">Buka →</a>
+                    </div>
+                    <div class="link-item">
+                        <div>
+                            <div class="link-title">Dokumen AD/ART MPK</div>
+                            <div class="link-meta">File PDF</div>
+                        </div>
+                        <a href="#" class="btn-buka" target="_blank">Buka →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --- Konten: Biodata Pengurus --- -->
+        <div class="content-card hidden" id="tab-biodata">
+            <div class="card-header">
+                <h2 class="
