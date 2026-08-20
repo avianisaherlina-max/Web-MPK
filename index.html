@@ -22,6 +22,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Latar belakang dengan nuansa gelap elegan */
+            background-image: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9)), 
+                              url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
 
         .container {
@@ -30,7 +36,7 @@
             background: var(--card-bg);
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
             text-align: center;
         }
 
@@ -65,10 +71,10 @@
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 5px 8px;
             transition: 0.3s;
         }
 
@@ -98,32 +104,39 @@
             color: var(--primary-color);
             margin-top: 0;
             font-size: 1.1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
         }
 
-        /* Biodata Grid */
-        .biodata-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
+        /* List Biodata & Komisi */
+        .biodata-section {
+            margin-bottom: 15px;
         }
 
-        .biodata-item {
-            background: #252525;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
+        .biodata-section h4 {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin: 10px 0 5px 0;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 8px;
         }
 
-        .biodata-item span {
-            display: block;
-            font-size: 0.8rem;
+        .biodata-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .biodata-list li {
+            font-size: 0.85rem;
             color: var(--text-muted);
+            padding: 4px 0;
+            border-bottom: 1px dashed #333;
         }
 
-        .biodata-item strong {
-            font-size: 1rem;
+        .biodata-list li span {
             color: var(--primary-color);
+            font-weight: bold;
         }
     </style>
 </head>
@@ -163,32 +176,54 @@
             <div class="card">
                 <h3>Tautan Dokumen Penting</h3>
                 <p>Silakan akses tautan di bawah ini untuk melihat Proposal dan Laporan Pertanggungjawaban (LPJ):</p>
-                <p><a href="MASUKKAN_LINK_GOOGLE_DRIVE_DISINI" target="_blank" style="color: var(--primary-color); font-weight: bold;">📁 Buka Google Drive Proposal & LPJ</a></p>
+                <p><a href="#" target="_blank" style="color: var(--primary-color); font-weight: bold;">📁 Buka Google Drive Proposal & LPJ</a></p>
             </div>
         </div>
 
         <!-- Konten 4: Biodata -->
         <div id="biodata" class="tab-content">
             <div class="card">
-                <h3>Pengurus Inti MPK</h3>
-                <div class="biodata-grid">
-                    <div class="biodata-item">
-                        <span>Ketua MPK</span>
-                        <strong>Giyas Nabil</strong>
-                    </div>
-                    <div class="biodata-item">
-                        <span>Wakil Ketua</span>
-                        <strong>Siti Apriyanti</strong>
-                    </div>
-                    <div class="biodata-item">
-                        <span>Sekretaris</span>
-                        <strong>Ahmad Fauzi</strong>
-                    </div>
-                    <div class="biodata-item">
-                        <span>Bendahara</span>
-                        <strong>Dewi Lestari</strong>
-                    </div>
+                <h3>Struktur Kepengurusan MPK</h3>
+                
+                <div class="biodata-section">
+                    <h4>Pengurus Inti</h4>
+                    <ul class="biodata-list">
+                        <li><span>Ketua:</span> Giyas Nabil Qurisqi</li>
+                        <li><span>Wakil Ketua:</span> Mutiara Khoirunnisa</li>
+                        <li><span>Sekretaris 1:</span> Alifia Nabila Putri</li>
+                        <li><span>Sekretaris 2:</span> Aisyah Firdasari</li>
+                        <li><span>Bendahara:</span> Gina Qolbiyatul Latifah</li>
+                    </ul>
                 </div>
+
+                <div class="biodata-section">
+                    <h4>Komisi 1</h4>
+                    <ul class="biodata-list">
+                        <li>M. Andra Ary Cesanov</li>
+                        <li>Andika Dwi Kuncoro</li>
+                        <li>Yoga Aditya Pratama</li>
+                        <li>Fahrel</li>
+                    </ul>
+                </div>
+
+                <div class="biodata-section">
+                    <h4>Komisi 2</h4>
+                    <ul class="biodata-list">
+                        <li>Darrel Dewangga Arjuna</li>
+                        <li>Hilal Lee Diar Sulaeman Malik</li>
+                        <li>Alfirza Nurhidayahtulloh Arrahman</li>
+                    </ul>
+                </div>
+
+                <div class="biodata-section">
+                    <h4>Komisi 3</h4>
+                    <ul class="biodata-list">
+                        <li>Cut Annisa Syarifuddin</li>
+                        <li>Muhamad Rizik</li>
+                        <li>Aisy Galuh Khaerunnisa Putri</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
 
@@ -199,19 +234,16 @@
         function switchTab(evt, tabName) {
             let i, tabContent, menuBtns;
 
-            // Sembunyikan semua konten tab
             tabContent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabContent.length; i++) {
                 tabContent[i].classList.remove("active");
             }
 
-            // Hapus kelas 'active' dari semua tombol menu
             menuBtns = document.getElementsByClassName("menu-btn");
             for (i = 0; i < menuBtns.length; i++) {
                 menuBtns[i].classList.remove("active");
             }
 
-            // Tampilkan tab yang dipilih dan tandai tombol aktif
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
