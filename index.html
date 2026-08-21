@@ -527,7 +527,7 @@
                 </div>
             </div>
 
-            <!-- Konten 5: Aspirasi (Tab Khusus Siswa untuk Input / Pengurus untuk Melihat Data) -->
+            <!-- Konten 5: Aspirasi -->
             <div id="aspirasi" class="tab-content">
                 <div class="card" id="aspirasi-card-container">
                     <!-- Isi card diatur via JS tergantung role -->
@@ -539,6 +539,8 @@
 
     <!-- Script JavaScript -->
     <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQY2JBcqNKUVsyQGlEIPGwb-03iEbDbwOMRruZ-QKbbm0Su_SgaouhJcRx9Ev2zYgE/exec";
+
         function handleLogin(event) {
             event.preventDefault();
             let user = document.getElementById('username').value.trim();
@@ -574,11 +576,8 @@
             let bBody = document.getElementById("beranda-body");
 
             if (role === "osis") {
-                // Label Beranda standar untuk OSIS
                 bTitle.innerText = "✨ Selamat Datang";
-                bBody.innerHTML = `<p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>`;
-
-                // 5 Tab untuk OSIS/MPK
+                bBody.innerHTML = `<p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis.</p>`;
                 navContainer.innerHTML = `
                     <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
                     <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
@@ -586,122 +585,64 @@
                     <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
                     <button class="menu-btn" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>05</span></button>
                 `;
-
-                // Render rekap data aspirasi untuk OSIS
                 renderAspirasiListForAdmin();
-
             } else {
-                // Ubah Beranda menjadi Informasi Acara untuk Siswa
                 bTitle.innerText = "📢 Informasi Acara";
-                bBody.innerHTML = `
-                    <p>Pantau informasi dan pengumuman acara penting sekolah di bawah ini:</p>
-                    <div class="folder-container" style="max-height: 280px;">
-                        <div class="folder">
-                            <button class="folder-header" onclick="toggleFolder(this)">Lomba 17 Agustus 2026 <span>+</span></button>
-                            <div class="folder-content">
-                                Informasi seputar pelaksanaan Lomba 17 Agustus 2026: 
-                                <p style="margin-top: 8px; color: var(--text-color);">Jangan lupa persiapkan perlengkapan lomba dan patuhi aturan kostum yang telah diumumkan oleh panitia kelas/sekolah!</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Tab khusus untuk Siswa Biasa (Informasi Acara & Aspirasi)
                 navContainer.innerHTML = `
-                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Informasi Acara<span>01</span></button>
+                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Info<span>01</span></button>
                     <button class="menu-btn" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>02</span></button>
                 `;
-
-                // Render form input aspirasi untuk Siswa
                 aspirasiCard.innerHTML = `
                     <h3>💬 Kotak Aspirasi Siswa</h3>
-                    <p>Sampaikan kritik, saran, atau masukan untuk kemajuan sekolah dan organisasi melalui form di bawah ini:</p>
                     <form onsubmit="submitAspirasi(event)">
-                        <div class="form-group">
-                            <label>Kelas</label>
-                            <input type="text" id="aspKelas" class="form-control" placeholder="Contoh: XII TKJ 1" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" id="aspNama" class="form-control" placeholder="Nama lengkap Anda..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Hal yang ingin disampaikan</label>
-                            <textarea id="aspPesan" class="form-control" rows="4" placeholder="Tuliskan aspirasi atau masukan Anda..." required style="resize: vertical;"></textarea>
-                        </div>
-                        <button type="submit" class="login-btn" style="margin-top:0;">Kirim Aspirasi</button>
+                        <div class="form-group"><label>Kelas</label><input type="text" id="aspKelas" class="form-control" required></div>
+                        <div class="form-group"><label>Nama</label><input type="text" id="aspNama" class="form-control" required></div>
+                        <div class="form-group"><label>Pesan</label><textarea id="aspPesan" class="form-control" rows="4" required></textarea></div>
+                        <button type="submit" class="login-btn">Kirim Aspirasi</button>
                     </form>
                 `;
             }
-
-            // Set default ke tab pertama
             let firstBtn = navContainer.querySelector('.menu-btn');
             if(firstBtn) firstBtn.click();
         }
 
-        function submitAspirasi(e) {
+        async function submitAspirasi(e) {
             e.preventDefault();
-            let kelas = document.getElementById('aspKelas').value;
-            let nama = document.getElementById('aspNama').value;
-            let pesan = document.getElementById('aspPesan').value;
-
-            let dataAspirasi = JSON.parse(localStorage.getItem('listAspirasi')) || [];
-            dataAspirasi.unshift({
-                kelas: kelas,
-                nama: nama,
-                pesan: pesan,
-                tanggal: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})
-            });
-
-            localStorage.setItem('listAspirasi', JSON.stringify(dataAspirasi));
-            alert('Aspirasi berhasil dikirim! Terima kasih atas masukan Anda.');
+            let data = {
+                action: "add",
+                id: Date.now().toString(),
+                tanggal: new Date().toLocaleDateString(),
+                kelas: document.getElementById('aspKelas').value,
+                nama: document.getElementById('aspNama').value,
+                pesan: document.getElementById('aspPesan').value
+            };
+            alert("Mengirim...");
+            await fetch(SCRIPT_URL, {method: 'POST', body: JSON.stringify(data)});
+            alert('Aspirasi berhasil dikirim!');
             e.target.reset();
         }
 
-        function renderAspirasiListForAdmin() {
+        async function renderAspirasiListForAdmin() {
             let aspirasiCard = document.getElementById('aspirasi-card-container');
-            let dataAspirasi = JSON.parse(localStorage.getItem('listAspirasi')) || [];
-
-            let htmlContent = `<h3>📥 Data Aspirasi Siswa</h3><p>Berikut adalah daftar aspirasi yang masuk dari siswa:</p><div class="folder-container">`;
-
-            if (dataAspirasi.length === 0) {
-                htmlContent += `<p style="text-align:center; color: var(--text-muted); padding: 20px 0;">Belum ada aspirasi yang dikirimkan.</p>`;
-            } else {
-                dataAspirasi.forEach(item => {
-                    htmlContent += `
-                        <div class="aspirasi-item">
-                            <div class="meta">
-                                <span><b>${item.nama}</b> (${item.kelas})</span>
-                                <span>${item.tanggal}</span>
-                            </div>
-                            <div class="text">${item.pesan}</div>
-                        </div>
-                    `;
-                });
-            }
-            htmlContent += `</div>`;
-            aspirasiCard.innerHTML = htmlContent;
+            aspirasiCard.innerHTML = "Memuat data...";
+            let response = await fetch(SCRIPT_URL);
+            let dataAspirasi = await response.json();
+            let html = `<h3>📥 Data Aspirasi</h3>`;
+            dataAspirasi.forEach(item => {
+                html += `<div class="aspirasi-item">
+                    <div class="meta"><span>${item.nama} (${item.kelas})</span><span>${item.tanggal}</span></div>
+                    <div class="text">${item.pesan}</div>
+                </div>`;
+            });
+            aspirasiCard.innerHTML = html;
         }
 
         function switchTab(evt, tabName) {
-            let i, tabContent, menuBtns;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) tabContent[i].classList.remove("active");
-            
-            menuBtns = document.getElementsByClassName("menu-btn");
-            for (i = 0; i < menuBtns.length; i++) menuBtns[i].classList.remove("active");
-            
-            let targetTab = document.getElementById(tabName);
-            if(targetTab) targetTab.classList.add("active");
-            
-            if(evt && evt.currentTarget) {
-                evt.currentTarget.classList.add("active");
-            }
-
-            // Jika admin membuka tab aspirasi, refresh datanya
-            if(tabName === 'aspirasi' && sessionStorage.getItem("userRole") === 'osis') {
-                renderAspirasiListForAdmin();
-            }
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".menu-btn").forEach(el => el.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            if(evt) evt.currentTarget.classList.add("active");
+            if(tabName === 'aspirasi' && sessionStorage.getItem("userRole") === 'osis') renderAspirasiListForAdmin();
         }
 
         function toggleFolder(btn) {
@@ -711,12 +652,9 @@
             btn.querySelector('span').innerText = isOpen ? "+" : "-";
         }
 
-        // Cek sesi saat halaman dimuat
-        window.onload = function() {
+        window.onload = () => {
             let savedRole = sessionStorage.getItem("userRole");
-            if (savedRole) {
-                initApp(savedRole);
-            }
+            if (savedRole) initApp(savedRole);
         }
     </script>
 </body>
