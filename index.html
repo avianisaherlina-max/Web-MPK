@@ -1,3 +1,4 @@
+Berikut adalah kodingan lengkap dan utuh tanpa ada satupun baris atau teks yang disingkat atau dihapus. Tautan Day 1 sampai Day 5 sudah dimasukkan ke dalam folder MPLS Tahun 2026 dengan nama dan format yang sesuai:
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -25,6 +26,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            /* Bagian background ini yang diganti ke link Pinterest kamu */
             background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
                               url('https://i.pinimg.com/736x/9f/20/a6/9f20a6a451fd9a56c79cbe0001003125.jpg');
             background-size: cover;
@@ -72,6 +74,7 @@
             line-height: 1.4;
         }
 
+        /* Navigasi Menu Modern */
         .menu-nav {
             display: flex;
             justify-content: space-between;
@@ -113,6 +116,7 @@
             opacity: 1;
         }
 
+        /* Konten Tab dengan Animasi Masuk */
         .tab-content {
             display: none;
             animation: fadeIn 0.4s ease-in-out;
@@ -153,6 +157,7 @@
             margin-bottom: 10px;
         }
 
+        /* Sistem Folder Interaktif */
         .folder-container {
             max-height: 320px;
             overflow-y: auto;
@@ -221,10 +226,43 @@
             background: #38381f;
         }
 
-        .biodata-section { margin-bottom: 16px; }
-        .biodata-section h4 { color: var(--text-color); font-size: 0.9rem; margin: 12px 0 6px 0; border-left: 3px solid var(--primary-color); padding-left: 8px; }
-        .biodata-list { list-style: none; padding: 0; margin: 0; }
-        .biodata-list li { font-size: 0.85rem; color: var(--text-muted); padding: 6px 8px; border-bottom: 1px dashed #2d2d2d; display: flex; justify-content: space-between; align-items: center; }
+        /* Styling Biodata & Komisi */
+        .biodata-section {
+            margin-bottom: 16px;
+        }
+
+        .biodata-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .biodata-section h4 {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin: 12px 0 6px 0;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .biodata-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .biodata-list li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 6px 8px;
+            border-bottom: 1px dashed #2d2d2d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .biodata-list li:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
@@ -237,6 +275,7 @@
         
         <p class="subtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
 
+        <!-- Navigasi Menu -->
         <div class="menu-nav">
             <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
             <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
@@ -244,6 +283,7 @@
             <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
         </div>
 
+        <!-- Konten 1: Beranda -->
         <div id="beranda" class="tab-content active">
             <div class="card">
                 <h3>✨ Selamat Datang</h3>
@@ -251,15 +291,18 @@
             </div>
         </div>
 
+        <!-- Konten 2: Event -->
         <div id="event" class="tab-content">
             <div class="card">
                 <h3>📅 Arsip Event & Kegiatan</h3>
+                <p>Ketuk salah satu folder acara untuk melihat dokumentasinya:</p>
                 <div class="folder-container">
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button><div class="folder-content">Dokumentasi lomba Agustusan.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button><div class="folder-content">Dokumentasi dan arsip kegiatan lomba Agustusan akan segera diunggah di sini.</div></div>
+                    
                     <div class="folder">
                         <button class="folder-header" onclick="toggleFolder(this)">MPLS Tahun 2026 <span>+</span></button>
                         <div class="folder-content">
-                            Dokumentasi kegiatan MPLS:<br>
+                            Dokumentasi kegiatan Masa Pengenalan Lingkungan Sekolah:
                             <a href="https://drive.google.com/drive/mobile/folders/1ErQ8rkKUItHpTxT8aVD5JzaFfjAgjDsm?usp=sharing" target="_blank" class="file-link">📁 Day 1</a>
                             <a href="https://drive.google.com/drive/mobile/folders/1kPbyLRIFQZ6PigK64T13aHNPb3U8PAgA?usp=sharing" target="_blank" class="file-link">📁 Day 2</a>
                             <a href="https://drive.google.com/drive/mobile/folders/1bqa8oP9V2c6HZ-3chb5WzYZ73P4ZN75S?usp=sharing" target="_blank" class="file-link">📁 Day 3</a>
@@ -267,42 +310,92 @@
                             <a href="https://drive.google.com/drive/mobile/folders/1aZHO_KxCg3qc2ort2caBZ2rohFsR6rM4?usp=sharing" target="_blank" class="file-link">📁 Day 5</a>
                         </div>
                     </div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat 2026 <span>+</span></button><div class="folder-content">Dokumentasi Pesantren Kilat.</div></div>
+
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan keagamaan Pesantren Kilat.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Isra Mi'raj Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Isra Mi'raj Nabi Muhammad SAW.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Apel Pagi dan Senam Ceria <span>+</span></button><div class="folder-content">Dokumentasi kegiatan rutinitas apel dan senam bersama.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Penilaian Seni Tari <span>+</span></button><div class="folder-content">Dokumentasi ujian praktek dan penilaian seni tari siswa.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Classmeeting 2025 <span>+</span></button><div class="folder-content">Arsip perlombaan antar kelas semester akhir 2025.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Menanam Pohon Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi aksi pelestarian lingkungan sekolah.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Guru Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi perayaan dan apresiasi Hari Guru Nasional.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Pahlawan Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Hari Pahlawan.</div></div>
+                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Sumpah Pemuda Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan peringatan Sumpah Pemuda.</div></div>
                 </div>
             </div>
         </div>
 
+        <!-- Konten 3: Tautan -->
         <div id="tautan" class="tab-content">
             <div class="card">
                 <h3>📁 Dokumen Administrasi</h3>
+                <p>Ketuk folder di bawah untuk mengakses berkas:</p>
                 <div class="folder">
                     <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
                     <div class="folder-content">
+                        Berikut adalah file proposal kegiatan yang tersedia:
                         <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">📝 Proposal MPK</a>
                     </div>
+                </div>
+                <div class="folder">
+                    <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
+                    <div class="folder-content">Belum ada file LPJ yang diunggah.</div>
                 </div>
             </div>
         </div>
 
+        <!-- Konten 4: Biodata -->
         <div id="biodata" class="tab-content">
             <div class="card">
                 <h3>👑 Struktur Kepengurusan MPK</h3>
                 <div class="biodata-section">
+                    <h4>Pengurus Inti</h4>
                     <ul class="biodata-list">
                         <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
                         <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
+                        <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
+                        <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
+                        <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
+                    </ul>
+                </div>
+                <div class="biodata-section">
+                    <h4>Komisi 1</h4>
+                    <ul class="biodata-list">
+                        <li>M. Andra Ary Cesanov</li>
+                        <li>Andika Dwi Kuncoro</li>
+                        <li>Yoga Aditya Pratama</li>
+                        <li>Fahrel</li>
+                    </ul>
+                </div>
+                <div class="biodata-section">
+                    <h4>Komisi 2</h4>
+                    <ul class="biodata-list">
+                        <li>Darrel Dewangga Arjuna</li>
+                        <li>Hilal Lee Diar Sulaeman Malik</li>
+                        <li>Alfirza Nurhidayahtulloh Arrahman</li>
+                    </ul>
+                </div>
+                <div class="biodata-section">
+                    <h4>Komisi 3</h4>
+                    <ul class="biodata-list">
+                        <li>Cut Annisa Syarifuddin</li>
+                        <li>Muhamad Rizik</li>
+                        <li>Aisy Galuh Khaerunnisa Putri</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Script JavaScript -->
     <script>
         function switchTab(evt, tabName) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            evt.currentTarget.classList.add('active');
+            let i, tabContent, menuBtns;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) tabContent[i].classList.remove("active");
+            menuBtns = document.getElementsByClassName("menu-btn");
+            for (i = 0; i < menuBtns.length; i++) menuBtns[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
         function toggleFolder(btn) {
             let content = btn.nextElementSibling;
