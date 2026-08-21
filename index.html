@@ -42,6 +42,7 @@
             border: 1px solid var(--border-color);
             box-sizing: border-box;
             backdrop-filter: blur(10px);
+            position: relative;
         }
 
         .header-title {
@@ -72,12 +73,38 @@
             line-height: 1.4;
         }
 
-        /* Form Login */
-        .login-box {
+        /* Top Bar untuk Logout */
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .logout-btn {
+            background: #2a1818;
+            border: 1px solid rgba(255, 99, 71, 0.4);
+            color: #ff6347;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #3d2020;
+        }
+
+        /* Halaman Login Styling */
+        #login-section {
             display: block;
         }
 
-        .main-app {
+        #main-app {
             display: none;
         }
 
@@ -92,11 +119,11 @@
             margin-bottom: 6px;
         }
 
-        .form-group input, .form-group textarea {
+        .form-control {
             width: 100%;
             padding: 10px 14px;
             background: #202020;
-            border: 1px solid #333;
+            border: 1px solid #333333;
             border-radius: 8px;
             color: var(--text-color);
             font-size: 0.9rem;
@@ -105,30 +132,31 @@
             transition: border-color 0.2s;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-control:focus {
             border-color: var(--primary-color);
         }
 
-        .login-btn, .submit-btn {
+        .login-btn {
             width: 100%;
             background: var(--primary-color);
-            color: #000;
+            color: #000000;
             border: none;
             padding: 12px;
             border-radius: 8px;
             font-weight: bold;
             font-size: 0.9rem;
             cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 0 15px var(--primary-glow);
             transition: opacity 0.2s;
-            margin-top: 5px;
         }
 
-        .login-btn:hover, .submit-btn:hover {
+        .login-btn:hover {
             opacity: 0.9;
         }
 
         .error-msg {
-            color: #ff4d4d;
+            color: #ff6347;
             font-size: 0.8rem;
             text-align: center;
             margin-top: 10px;
@@ -144,25 +172,28 @@
             border-radius: 12px;
             margin-bottom: 25px;
             border: 1px solid var(--border-color);
+            overflow-x: auto;
+            gap: 4px;
         }
 
         .menu-btn {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             cursor: pointer;
-            padding: 8px 12px;
+            padding: 8px 8px;
             border-radius: 8px;
             transition: all 0.3s ease;
             text-align: center;
             flex: 1;
+            white-space: nowrap;
         }
 
         .menu-btn span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             opacity: 0.7;
         }
 
@@ -324,79 +355,76 @@
         .biodata-list li:last-child {
             border-bottom: none;
         }
+
+        /* Aspirasi Item List */
+        .aspirasi-item {
+            background: #252525;
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #333;
+        }
+        .aspirasi-item .meta {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .aspirasi-item .text {
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- HALAMAN LOGIN -->
-        <div id="loginSection" class="login-box">
+        
+        <!-- BAGIAN LOGIN -->
+        <div id="login-section">
             <div class="header-title">
                 <h1>SMKS Tunas Harapan Pasar Kemis</h1>
                 <h2>Login Akses MPK</h2>
             </div>
-            <p class="subtitle">Silakan masukkan username dan password sesuai hak akses Anda.</p>
+            <p class="subtitle">Silakan masukkan Username dan Password sesuai hak akses Anda.</p>
             
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="usernameInput" placeholder="Masukkan username...">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="passwordInput" placeholder="Masukkan password...">
-            </div>
-            <button class="login-btn" onclick="handleLogin()">Masuk</button>
-            <div id="errorMsg" class="error-msg">Username atau Password salah!</div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Masukkan Username..." required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Masukkan Password..." required>
+                </div>
+                <button type="submit" class="login-btn">MASUK</button>
+                <div id="errorMsg" class="error-msg">Username atau Password salah!</div>
+            </form>
         </div>
 
-        <!-- HALAMAN UTAMA APLIKASI (Tersembunyi sebelum login) -->
-        <div id="mainAppSection" class="main-app">
+        <!-- BAGIAN UTAMA WEBSITE (setelah login) -->
+        <div id="main-app">
+            <div class="top-bar">
+                <button class="logout-btn" onclick="handleLogout()">
+                    🔒 Logout
+                </button>
+            </div>
+
             <div class="header-title">
                 <h1>SMKS Tunas Harapan Pasar Kemis</h1>
-                <h2 id="appTitle">Organisasi MPK</h2>
+                <h2>Organisasi MPK</h2>
             </div>
             
-            <p class="subtitle" id="appSubtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
+            <p class="subtitle" id="welcome-subtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
 
-            <!-- Navigasi Menu untuk OSIS/MPK -->
-            <div id="osismpkNav" class="menu-nav" style="display: none;">
-                <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
-                <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
-                <button class="menu-btn" onclick="switchTab(event, 'tautan')">Tautan<span>03</span></button>
-                <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
-            </div>
-
-            <!-- Navigasi Menu untuk Siswa Biasa (Hanya Aspirasi) -->
-            <div id="siswaNav" class="menu-nav" style="display: none;">
-                <button class="menu-btn active" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>01</span></button>
-            </div>
-
-            <!-- Konten Tab Aspirasi (Khusus Siswa Biasa) -->
-            <div id="aspirasi" class="tab-content">
-                <div class="card">
-                    <h3>💬 Kotak Aspirasi Siswa</h3>
-                    <p>Sampaikan kritik, saran, atau masukan untuk kemajuan sekolah kita melalui formulir di bawah ini:</p>
-                    <form onsubmit="submitAspirasi(event)">
-                        <div class="form-group">
-                            <label>Kelas</label>
-                            <input type="text" id="aspKelas" placeholder="Contoh: XI TKJ 1" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" id="aspNama" placeholder="Nama lengkap kamu..." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Hal yang ingin disampaikan</label>
-                            <textarea id="aspPesan" rows="4" placeholder="Tuliskan aspirasi kamu di sini..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Kirim Aspirasi</button>
-                    </form>
-                    <div id="successMsg" style="color: #4bb543; font-size: 0.85rem; text-align: center; margin-top: 10px; display: none;">Aspirasi berhasil dikirim! Terima kasih.</div>
-                </div>
+            <!-- Navigasi Menu (Dinamis Berdasarkan Hak Akses) -->
+            <div class="menu-nav" id="menuNavContainer">
+                <!-- Diisi via Javascript tergantung role -->
             </div>
 
             <!-- Konten 1: Beranda -->
-            <div id="beranda" class="tab-content">
+            <div id="beranda" class="tab-content active">
                 <div class="card">
                     <h3>✨ Selamat Datang</h3>
                     <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
@@ -496,31 +524,96 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Konten 5: Aspirasi (Tab Khusus Siswa untuk Input / Pengurus untuk Melihat Data) -->
+            <div id="aspirasi" class="tab-content">
+                <div class="card" id="aspirasi-card-container">
+                    <!-- Isi card diatur via JS tergantung role -->
+                </div>
+            </div>
+
         </div>
     </div>
 
     <!-- Script JavaScript -->
     <script>
-        function handleLogin() {
-            let user = document.getElementById('usernameInput').value.trim();
-            let pass = document.getElementById('passwordInput').value.trim();
-            let errorMsg = document.getElementById('errorMsg');
+        function handleLogin(event) {
+            event.preventDefault();
+            let user = document.getElementById('username').value.trim();
+            let pass = document.getElementById('password').value.trim();
+            let err = document.getElementById('errorMsg');
 
-            if (user === "OSISMPK" && pass === "SMKSTUNASHARAPA") {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('mainAppSection').style.display = 'block';
-                document.getElementById('osismpkNav').style.display = 'flex';
-                document.getElementById('beranda').classList.add('active');
+            if (user === "OSISMPK" && pass === "SMKSTUNASHARAPAN") {
+                sessionStorage.setItem("userRole", "osis");
+                initApp("osis");
             } else if (user === "SISWASISWI" && pass === "SMKSTUNASHARAPAN") {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('mainAppSection').style.display = 'block';
-                document.getElementById('appTitle').innerText = "Portal Aspirasi Siswa";
-                document.getElementById('appSubtitle').innerText = "Sampaikan aspirasimu untuk kemajuan sekolah bersama.";
-                document.getElementById('siswaNav').style.display = 'flex';
-                document.getElementById('aspirasi').classList.add('active');
+                sessionStorage.setItem("userRole", "siswa");
+                initApp("siswa");
             } else {
-                errorMsg.style.display = 'block';
+                err.style.display = "block";
             }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem("userRole");
+            document.getElementById("main-app").style.display = "none";
+            document.getElementById("login-section").style.display = "block";
+            document.getElementById("loginForm").reset();
+            document.getElementById("errorMsg").style.display = "none";
+        }
+
+        function initApp(role) {
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("main-app").style.display = "block";
+
+            let navContainer = document.getElementById("menuNavContainer");
+            let aspirasiCard = document.getElementById("aspirasi-card-container");
+
+            if (role === "osis") {
+                // 5 Tab untuk OSIS/MPK
+                navContainer.innerHTML = `
+                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
+                    <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
+                    <button class="menu-btn" onclick="switchTab(event, 'tautan')">Tautan<span>03</span></button>
+                    <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
+                    <button class="menu-btn" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>05</span></button>
+                `;
+
+                // Render rekap data aspirasi untuk OSIS
+                renderAspirasiListForAdmin();
+
+            } else {
+                // Tab khusus untuk Siswa Biasa (Hanya Beranda & Aspirasi Input)
+                navContainer.innerHTML = `
+                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
+                    <button class="menu-btn" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>02</span></button>
+                `;
+
+                // Render form input aspirasi untuk Siswa
+                aspirasiCard.innerHTML = `
+                    <h3>💬 Kotak Aspirasi Siswa</h3>
+                    <p>Sampaikan kritik, saran, atau masukan untuk kemajuan sekolah dan organisasi melalui form di bawah ini:</p>
+                    <form onsubmit="submitAspirasi(event)">
+                        <div class="form-group">
+                            <label>Kelas</label>
+                            <input type="text" id="aspKelas" class="form-control" placeholder="Contoh: XII TKJ 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" id="aspNama" class="form-control" placeholder="Nama lengkap Anda..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Hal yang ingin disampaikan</label>
+                            <textarea id="aspPesan" class="form-control" rows="4" placeholder="Tuliskan aspirasi atau masukan Anda..." required style="resize: vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="login-btn" style="margin-top:0;">Kirim Aspirasi</button>
+                    </form>
+                `;
+            }
+
+            // Set default ke tab pertama
+            let firstBtn = navContainer.querySelector('.menu-btn');
+            if(firstBtn) firstBtn.click();
         }
 
         function submitAspirasi(e) {
@@ -529,26 +622,63 @@
             let nama = document.getElementById('aspNama').value;
             let pesan = document.getElementById('aspPesan').value;
 
-            // Di sini kamu bisa tambahkan logika pengiriman data (misal ke WhatsApp/Database jika diperlukan)
-            document.getElementById('successMsg').style.display = 'block';
-            
-            // Reset form setelah beberapa detik
-            setTimeout(() => {
-                document.getElementById('aspKelas').value = '';
-                document.getElementById('aspNama').value = '';
-                document.getElementById('aspPesan').value = '';
-                document.getElementById('successMsg').style.display = 'none';
-            }, 3000);
+            let dataAspirasi = JSON.parse(localStorage.getItem('listAspirasi')) || [];
+            dataAspirasi.unshift({
+                kelas: kelas,
+                nama: nama,
+                pesan: pesan,
+                tanggal: new Date().toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})
+            });
+
+            localStorage.setItem('listAspirasi', JSON.stringify(dataAspirasi));
+            alert('Aspirasi berhasil dikirim! Terima kasih atas masukan Anda.');
+            e.target.reset();
+        }
+
+        function renderAspirasiListForAdmin() {
+            let aspirasiCard = document.getElementById('aspirasi-card-container');
+            let dataAspirasi = JSON.parse(localStorage.getItem('listAspirasi')) || [];
+
+            let htmlContent = `<h3>📥 Data Aspirasi Siswa</h3><p>Berikut adalah daftar aspirasi yang masuk dari siswa:</p><div class="folder-container">`;
+
+            if (dataAspirasi.length === 0) {
+                htmlContent += `<p style="text-align:center; color: var(--text-muted); padding: 20px 0;">Belum ada aspirasi yang dikirimkan.</p>`;
+            } else {
+                dataAspirasi.forEach(item => {
+                    htmlContent += `
+                        <div class="aspirasi-item">
+                            <div class="meta">
+                                <span><b>${item.nama}</b> (${item.kelas})</span>
+                                <span>${item.tanggal}</span>
+                            </div>
+                            <div class="text">${item.pesan}</div>
+                        </div>
+                    `;
+                });
+            }
+            htmlContent += `</div>`;
+            aspirasiCard.innerHTML = htmlContent;
         }
 
         function switchTab(evt, tabName) {
             let i, tabContent, menuBtns;
             tabContent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabContent.length; i++) tabContent[i].classList.remove("active");
+            
             menuBtns = document.getElementsByClassName("menu-btn");
             for (i = 0; i < menuBtns.length; i++) menuBtns[i].classList.remove("active");
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+            
+            let targetTab = document.getElementById(tabName);
+            if(targetTab) targetTab.classList.add("active");
+            
+            if(evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            }
+
+            // Jika admin membuka tab aspirasi, refresh datanya
+            if(tabName === 'aspirasi' && sessionStorage.getItem("userRole") === 'osis') {
+                renderAspirasiListForAdmin();
+            }
         }
 
         function toggleFolder(btn) {
@@ -556,6 +686,14 @@
             let isOpen = content.style.display === "block";
             content.style.display = isOpen ? "none" : "block";
             btn.querySelector('span').innerText = isOpen ? "+" : "-";
+        }
+
+        // Cek sesi saat halaman dimuat
+        window.onload = function() {
+            let savedRole = sessionStorage.getItem("userRole");
+            if (savedRole) {
+                initApp(savedRole);
+            }
         }
     </script>
 </body>
