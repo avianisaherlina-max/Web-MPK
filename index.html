@@ -168,11 +168,32 @@
             font-size: 0.9rem;
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .link-btn:active {
             transform: scale(0.98);
+        }
+
+        /* Styling Event & Dokumentasi */
+        .event-item {
+            background: #272727;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .event-item h4 {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin: 0 0 4px 0;
+        }
+
+        .event-item p {
+            font-size: 0.82rem;
+            margin: 0;
+            color: var(--text-muted);
         }
 
         /* Styling Biodata & Komisi */
@@ -245,20 +266,32 @@
             </div>
         </div>
 
-        <!-- Konten 2: Event Sekolah -->
+        <!-- Konten 2: Event & Dokumentasi Kegiatan -->
         <div id="event" class="tab-content">
             <div class="card">
-                <h3>📅 Event Sekolah Terbaru</h3>
-                <p>Daftar kegiatan dan program kerja yang diselenggarakan oleh MPK SMKS Tunas Harapan Pasar Kemis, mulai dari agenda akademik, pentas seni, hingga turnamen olahraga antar kelas.</p>
+                <h3>📅 Event & Dokumentasi Kegiatan</h3>
+                <p>Berikut adalah daftar nama acara beserta dokumentasi kegiatan MPK:</p>
+                
+                <div class="event-item">
+                    <h4>Class Meeting Semester Ganjil</h4>
+                    <p>Dokumentasi dan arsip kegiatan perlombaan antar kelas.</p>
+                </div>
+
+                <div class="event-item">
+                    <h4>Sidang Pleno MPK</h4>
+                    <p>Dokumentasi laporan tahunan dan evaluasi program kerja.</p>
+                </div>
             </div>
         </div>
 
-        <!-- Konten 3: Tautan -->
+        <!-- Konten 3: Tautan (Proposal & LPJ Terpisah) -->
         <div id="tautan" class="tab-content">
             <div class="card">
                 <h3>📁 Dokumen Penting</h3>
-                <p>Akses cepat untuk melihat Proposal kegiatan dan Laporan Pertanggungjawaban (LPJ):</p>
-                <a href="#" target="_blank" class="link-btn">Buka Google Drive Proposal & LPJ</a>
+                <p>Silakan pilih dokumen administrasi yang ingin diakses:</p>
+                
+                <a href="#" target="_blank" class="link-btn">📄 Proposal Kegiatan</a>
+                <a href="#" target="_blank" class="link-btn" style="background: linear-gradient(135deg, #e5c100, #b39500);">📊 Laporan Pertanggung Jawaban (LPJ)</a>
             </div>
         </div>
 
