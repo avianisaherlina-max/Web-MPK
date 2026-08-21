@@ -155,45 +155,66 @@
             margin-bottom: 10px;
         }
 
-        /* Tombol Tautan Kustom */
-        .link-btn {
-            display: block;
-            background: linear-gradient(135deg, #ffd700, #cca600);
-            color: #000000;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
-            margin-top: 12px;
-        }
-
-        .link-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Styling Event & Dokumentasi */
-        .event-list-container {
+        /* Sistem Folder Interaktif */
+        .folder-container {
             max-height: 320px;
             overflow-y: auto;
             padding-right: 4px;
         }
 
-        .event-item {
-            background: #272727;
-            padding: 10px 12px;
+        .folder {
+            background: #252525;
+            border: 1px solid #333333;
             border-radius: 8px;
-            margin-top: 8px;
-            border-left: 3px solid var(--primary-color);
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s;
         }
 
-        .event-item h4 {
+        .folder:hover {
+            border-color: var(--primary-color);
+        }
+
+        .folder-header {
+            width: 100%;
+            padding: 12px 14px;
+            background: none;
+            border: none;
             color: var(--text-color);
+            text-align: left;
+            font-weight: 600;
             font-size: 0.9rem;
-            margin: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .folder-header span {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .folder-content {
+            display: none;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid #333333;
+            background: #1c1c1c;
+        }
+
+        .folder-content a {
+            display: block;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .folder-content a:hover {
+            text-decoration: underline;
         }
 
         /* Styling Biodata & Komisi */
@@ -233,11 +254,6 @@
         .biodata-list li:last-child {
             border-bottom: none;
         }
-
-        .biodata-list li span.role {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
@@ -266,36 +282,82 @@
             </div>
         </div>
 
-        <!-- Konten 2: Event & Dokumentasi Kegiatan -->
+        <!-- Konten 2: Event (Sistem Folder) -->
         <div id="event" class="tab-content">
             <div class="card">
-                <h3>📅 Event & Dokumentasi Kegiatan</h3>
-                <p>Arsip kegiatan MPK SMKS Tunas Harapan Pasar Kemis:</p>
+                <h3>📅 Arsip Event & Kegiatan</h3>
+                <p>Ketuk salah satu folder acara untuk melihat dokumentasinya:</p>
                 
-                <div class="event-list-container">
-                    <div class="event-item"><h4>Lomba Agustusan 2026</h4></div>
-                    <div class="event-item"><h4>MPLS Tahun 2026</h4></div>
-                    <div class="event-item"><h4>Pesantren Kilat Tahun 2026</h4></div>
-                    <div class="event-item"><h4>Isra Mi'raj Tahun 2026</h4></div>
-                    <div class="event-item"><h4>Apel Pagi dan Senam Ceria</h4></div>
-                    <div class="event-item"><h4>Penilaian Seni Tari</h4></div>
-                    <div class="event-item"><h4>Classmeeting 2025</h4></div>
-                    <div class="event-item"><h4>Hari Menanam Pohon Tahun 2025</h4></div>
-                    <div class="event-item"><h4>Hari Guru Nasional Tahun 2025</h4></div>
-                    <div class="event-item"><h4>Hari Pahlawan Nasional Tahun 2025</h4></div>
-                    <div class="event-item"><h4>Hari Sumpah Pemuda Tahun 2025</h4></div>
+                <div class="folder-container">
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi dan arsip kegiatan lomba Agustusan akan segera diunggah di sini.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">MPLS Tahun 2026 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi kegiatan Masa Pengenalan Lingkungan Sekolah.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat Tahun 2026 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi kegiatan keagamaan Pesantren Kilat.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Isra Mi'raj Tahun 2026 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi peringatan Isra Mi'raj Nabi Muhammad SAW.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Apel Pagi dan Senam Ceria <span>+</span></button>
+                        <div class="folder-content">Dokumentasi kegiatan rutinitas apel dan senam bersama.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Penilaian Seni Tari <span>+</span></button>
+                        <div class="folder-content">Dokumentasi ujian praktek dan penilaian seni tari siswa.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Classmeeting 2025 <span>+</span></button>
+                        <div class="folder-content">Arsip perlombaan antar kelas semester akhir 2025.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Hari Menanam Pohon Tahun 2025 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi aksi pelestarian lingkungan sekolah.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Hari Guru Nasional Tahun 2025 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi perayaan dan apresiasi Hari Guru Nasional.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Hari Pahlawan Nasional Tahun 2025 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi peringatan Hari Pahlawan.</div>
+                    </div>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">Hari Sumpah Pemuda Tahun 2025 <span>+</span></button>
+                        <div class="folder-content">Dokumentasi kegiatan peringatan Sumpah Pemuda.</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Konten 3: Tautan (Proposal & LPJ Terpisah) -->
+        <!-- Konten 3: Tautan (Sistem Folder) -->
         <div id="tautan" class="tab-content">
             <div class="card">
-                <h3>📁 Dokumen Penting</h3>
-                <p>Silakan pilih dokumen administrasi yang ingin diakses:</p>
+                <h3>📁 Dokumen Administrasi</h3>
+                <p>Ketuk folder di bawah untuk mengakses berkas:</p>
                 
-                <a href="#" target="_blank" class="link-btn">📄 Proposal Kegiatan</a>
-                <a href="#" target="_blank" class="link-btn" style="background: linear-gradient(135deg, #e5c100, #b39500);">📊 Laporan Pertanggung Jawaban (LPJ)</a>
+                <div class="folder">
+                    <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
+                    <div class="folder-content">
+                        File proposal kegiatan MPK akan ditaruh di sini.<br>
+                        <a href="#" target="_buka">🔗 Buka Tautan Proposal (Google Drive)</a>
+                    </div>
+                </div>
+
+                <div class="folder">
+                    <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
+                    <div class="folder-content">
+                        File laporan pertanggungjawaban kegiatan MPK.<br>
+                        <a href="#" target="_buka">🔗 Buka Tautan LPJ (Google Drive)</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -307,11 +369,11 @@
                 <div class="biodata-section">
                     <h4>Pengurus Inti</h4>
                     <ul class="biodata-list">
-                        <li><span class="role">Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
-                        <li><span class="role">Wakil Ketua</span> Mutiara Khoirunnisa</li>
-                        <li><span class="role">Sekretaris 1</span> Alifia Nabila Putri</li>
-                        <li><span class="role">Sekretaris 2</span> Aisyah Firdasari</li>
-                        <li><span class="role">Bendahara</span> Gina Qolbiyatul Latifah</li>
+                        <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
+                        <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
+                        <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
+                        <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
+                        <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
                     </ul>
                 </div>
 
@@ -348,7 +410,7 @@
 
     </div>
 
-    <!-- Script JavaScript Transisi Menu -->
+    <!-- Script JavaScript Transisi & Folder -->
     <script>
         function switchTab(evt, tabName) {
             let i, tabContent, menuBtns;
@@ -365,6 +427,15 @@
 
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+
+        function toggleFolder(btn) {
+            let content = btn.nextElementSibling;
+            let isOpen = content.style.display === "block";
+
+            // Tutup semua folder lain dalam satu card jika ingin eksklusif (opsional, dibiarkan bebas biar nyaman)
+            content.style.display = isOpen ? "none" : "block";
+            btn.querySelector('span').innerText = isOpen ? "+" : "-";
         }
     </script>
 
