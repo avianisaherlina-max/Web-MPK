@@ -7,29 +7,25 @@
     <style>
         :root {
             --bg-color: #0d0d0d;
-            --card-bg: #181818;
-            --primary-color: #ffd700; /* Kuning Emas Elegan */
-            --primary-glow: rgba(255, 215, 0, 0.2);
+            --card-bg: rgba(20, 20, 20, 0.85);
+            --primary-color: #ffd700;
+            --primary-glow: rgba(255, 215, 0, 0.3);
             --text-color: #f1f1f1;
-            --text-muted: #999999;
-            --border-color: #2a2a2a;
+            --text-muted: #cccccc;
+            --border-color: rgba(255, 215, 0, 0.2);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            
-            /* Background landscape otomatis (bisa langsung dipakai tanpa upload file) */
-            background-image: linear-gradient(rgba(13, 13, 13, 0.85), rgba(13, 13, 13, 0.95)), 
-                              url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1200&auto=format&fit=crop');
-            
+            /* Background Pinterest Kamu */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
+                              url('https://i.pinimg.com/736x/9f/20/a6/9f20a6a451fd9a56c79cbe0001003125.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -42,229 +38,36 @@
             background: var(--card-bg);
             padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
             box-sizing: border-box;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
         }
 
-        .header-title {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .header-title { text-align: center; margin-bottom: 20px; }
+        h1 { font-size: 0.95rem; color: var(--primary-color); letter-spacing: 1px; margin: 0 0 5px 0; text-transform: uppercase; }
+        h2 { font-size: 1.4rem; margin: 0; color: #ffffff; font-weight: 700; }
+        .subtitle { font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 20px; }
 
-        h1 {
-            font-size: 0.95rem;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-            margin: 0 0 5px 0;
-            text-transform: uppercase;
-        }
+        .menu-nav { display: flex; justify-content: space-between; background: rgba(0,0,0,0.3); padding: 6px; border-radius: 12px; margin-bottom: 25px; border: 1px solid var(--border-color); }
+        .menu-btn { background: transparent; border: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: all 0.3s; flex: 1; }
+        .menu-btn span { display: block; font-size: 0.7rem; opacity: 0.7; }
+        .menu-btn.active { background: var(--primary-color); color: #000; font-weight: bold; box-shadow: 0 0 15px var(--primary-glow); }
 
-        h2 {
-            font-size: 1.4rem;
-            margin: 0;
-            color: #ffffff;
-            font-weight: 700;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .subtitle {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
+        .card { background: rgba(30, 30, 30, 0.6); padding: 18px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 15px; }
+        .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.05rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        
+        .folder { background: rgba(40, 40, 40, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+        .folder-header { width: 100%; padding: 12px 14px; background: none; border: none; color: white; text-align: left; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; }
+        .folder-content { display: none; padding: 12px 14px; color: #ccc; font-size: 0.85rem; border-top: 1px solid #444; background: rgba(20, 20, 20, 0.9); }
+        .file-link { display: block; color: var(--primary-color); text-decoration: none; margin-top: 10px; font-weight: 600; background: rgba(255, 215, 0, 0.1); padding: 8px; border-radius: 6px; border: 1px solid var(--primary-color); text-align: center; }
 
-        /* Navigasi Menu Modern */
-        .menu-nav {
-            display: flex;
-            justify-content: space-between;
-            background: #111111;
-            padding: 6px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-        }
-
-        .menu-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-align: center;
-            flex: 1;
-        }
-
-        .menu-btn span {
-            display: block;
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-
-        .menu-btn.active {
-            background: var(--primary-color);
-            color: #000000;
-            font-weight: bold;
-            box-shadow: 0 0 15px var(--primary-glow);
-        }
-
-        .menu-btn.active span {
-            opacity: 1;
-        }
-
-        /* Konten Tab dengan Animasi Masuk */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card {
-            background: #202020;
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid #2d2d2d;
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 1.05rem;
-            border-bottom: 1px solid #2d2d2d;
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .card p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        /* Sistem Folder Interaktif */
-        .folder-container {
-            max-height: 320px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
-        .folder {
-            background: #252525;
-            border: 1px solid #333333;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            transition: border-color 0.2s;
-        }
-
-        .folder:hover {
-            border-color: var(--primary-color);
-        }
-
-        .folder-header {
-            width: 100%;
-            padding: 12px 14px;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .folder-header span {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .folder-content {
-            display: none;
-            padding: 12px 14px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid #333333;
-            background: #1c1c1c;
-        }
-
-        .file-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary-color);
-            text-decoration: none;
-            margin-top: 8px;
-            font-weight: 600;
-            background: #2a2a18;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: background 0.2s;
-        }
-
-        .file-link:hover {
-            background: #38381f;
-        }
-
-        /* Styling Biodata & Komisi */
-        .biodata-section {
-            margin-bottom: 16px;
-        }
-
-        .biodata-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .biodata-section h4 {
-            color: var(--text-color);
-            font-size: 0.9rem;
-            margin: 12px 0 6px 0;
-            border-left: 3px solid var(--primary-color);
-            padding-left: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .biodata-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .biodata-list li {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            padding: 6px 8px;
-            border-bottom: 1px dashed #2d2d2d;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .biodata-list li:last-child {
-            border-bottom: none;
-        }
+        .biodata-section h4 { color: var(--primary-color); font-size: 0.9rem; margin: 15px 0 5px 0; border-bottom: 1px solid #333; }
+        .biodata-list { list-style: none; padding: 0; }
+        .biodata-list li { font-size: 0.85rem; color: #ccc; padding: 5px 0; border-bottom: 1px dashed #333; }
     </style>
 </head>
 <body>
@@ -275,9 +78,8 @@
             <h2>Organisasi MPK</h2>
         </div>
         
-        <p class="subtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
+        <p class="subtitle">Pusat informasi resmi dan dokumentasi organisasi.</p>
 
-        <!-- Navigasi Menu -->
         <div class="menu-nav">
             <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
             <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
@@ -285,170 +87,58 @@
             <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
         </div>
 
-        <!-- Konten 1: Beranda -->
         <div id="beranda" class="tab-content active">
             <div class="card">
                 <h3>✨ Selamat Datang</h3>
-                <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
+                <p>Selamat datang di arsip digital resmi MPK SMKS Tunas Harapan Pasar Kemis.</p>
             </div>
         </div>
 
-        <!-- Konten 2: Event (Sistem Folder) -->
         <div id="event" class="tab-content">
             <div class="card">
-                <h3>📅 Arsip Event & Kegiatan</h3>
-                <p>Ketuk salah satu folder acara untuk melihat dokumentasinya:</p>
-                
-                <div class="folder-container">
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi dan arsip kegiatan lomba Agustusan akan segera diunggah di sini.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">MPLS Tahun 2026 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi kegiatan Masa Pengenalan Lingkungan Sekolah.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat Tahun 2026 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi kegiatan keagamaan Pesantren Kilat.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Isra Mi'raj Tahun 2026 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi peringatan Isra Mi'raj Nabi Muhammad SAW.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Apel Pagi dan Senam Ceria <span>+</span></button>
-                        <div class="folder-content">Dokumentasi kegiatan rutinitas apel dan senam bersama.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Penilaian Seni Tari <span>+</span></button>
-                        <div class="folder-content">Dokumentasi ujian praktek dan penilaian seni tari siswa.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Classmeeting 2025 <span>+</span></button>
-                        <div class="folder-content">Arsip perlombaan antar kelas semester akhir 2025.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Hari Menanam Pohon Tahun 2025 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi aksi pelestarian lingkungan sekolah.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Hari Guru Nasional Tahun 2025 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi perayaan dan apresiasi Hari Guru Nasional.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Hari Pahlawan Nasional Tahun 2025 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi peringatan Hari Pahlawan.</div>
-                    </div>
-                    <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">Hari Sumpah Pemuda Tahun 2025 <span>+</span></button>
-                        <div class="folder-content">Dokumentasi kegiatan peringatan Sumpah Pemuda.</div>
-                    </div>
-                </div>
+                <h3>📅 Arsip Event</h3>
+                <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button><div class="folder-content">Dokumentasi segera hadir.</div></div>
+                <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">MPLS 2026 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan MPLS.</div></div>
             </div>
         </div>
 
-        <!-- Konten 3: Tautan (Sistem Folder) -->
         <div id="tautan" class="tab-content">
             <div class="card">
                 <h3>📁 Dokumen Administrasi</h3>
-                <p>Ketuk folder di bawah untuk mengakses berkas:</p>
-                
                 <div class="folder">
                     <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
                     <div class="folder-content">
-                        Berikut adalah file proposal kegiatan yang tersedia:
-                        <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">
-                            📝 Proposal MPK
-                        </a>
-                    </div>
-                </div>
-
-                <div class="folder">
-                    <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
-                    <div class="folder-content">
-                        Belum ada file LPJ yang diunggah.
+                        <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">📝 Buka Proposal MPK</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Konten 4: Biodata -->
         <div id="biodata" class="tab-content">
             <div class="card">
-                <h3>👑 Struktur Kepengurusan MPK</h3>
-                
+                <h3>👑 Pengurus Inti</h3>
                 <div class="biodata-section">
-                    <h4>Pengurus Inti</h4>
                     <ul class="biodata-list">
-                        <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
-                        <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
-                        <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
-                        <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
-                        <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
+                        <li><strong>Ketua:</strong> Giyas Nabil Qurisqi</li>
+                        <li><strong>Wakil:</strong> Mutiara Khoirunnisa</li>
                     </ul>
                 </div>
-
-                <div class="biodata-section">
-                    <h4>Komisi 1</h4>
-                    <ul class="biodata-list">
-                        <li>M. Andra Ary Cesanov</li>
-                        <li>Andika Dwi Kuncoro</li>
-                        <li>Yoga Aditya Pratama</li>
-                        <li>Fahrel</li>
-                    </ul>
-                </div>
-
-                <div class="biodata-section">
-                    <h4>Komisi 2</h4>
-                    <ul class="biodata-list">
-                        <li>Darrel Dewangga Arjuna</li>
-                        <li>Hilal Lee Diar Sulaeman Malik</li>
-                        <li>Alfirza Nurhidayahtulloh Arrahman</li>
-                    </ul>
-                </div>
-
-                <div class="biodata-section">
-                    <h4>Komisi 3</h4>
-                    <ul class="biodata-list">
-                        <li>Cut Annisa Syarifuddin</li>
-                        <li>Muhamad Rizik</li>
-                        <li>Aisy Galuh Khaerunnisa Putri</li>
-                    </ul>
-                </div>
-
             </div>
         </div>
-
     </div>
 
-    <!-- Script JavaScript Transisi & Folder -->
     <script>
         function switchTab(evt, tabName) {
-            let i, tabContent, menuBtns;
-
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].classList.remove("active");
-            }
-
-            menuBtns = document.getElementsByClassName("menu-btn");
-            for (i = 0; i < menuBtns.length; i++) {
-                menuBtns[i].classList.remove("active");
-            }
-
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
-
         function toggleFolder(btn) {
             let content = btn.nextElementSibling;
-            let isOpen = content.style.display === "block";
-
-            content.style.display = isOpen ? "none" : "block";
-            btn.querySelector('span').innerText = isOpen ? "+" : "-";
+            content.style.display = content.style.display === "block" ? "none" : "block";
+            btn.querySelector('span').innerText = content.style.display === "block" ? "-" : "+";
         }
     </script>
-
 </body>
 </html>
