@@ -205,16 +205,23 @@
             background: #1c1c1c;
         }
 
-        .folder-content a {
-            display: block;
+        .file-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: var(--primary-color);
             text-decoration: none;
-            margin-top: 6px;
-            font-weight: 500;
+            margin-top: 8px;
+            font-weight: 600;
+            background: #2a2a18;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: background 0.2s;
         }
 
-        .folder-content a:hover {
-            text-decoration: underline;
+        .file-link:hover {
+            background: #38381f;
         }
 
         /* Styling Biodata & Komisi */
@@ -346,16 +353,17 @@
                 <div class="folder">
                     <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
                     <div class="folder-content">
-                        File proposal kegiatan MPK akan ditaruh di sini.<br>
-                        <a href="#" target="_buka">🔗 Buka Tautan Proposal (Google Drive)</a>
+                        Berikut adalah file proposal kegiatan yang tersedia:
+                        <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">
+                            📝 Proposal MPK
+                        </a>
                     </div>
                 </div>
 
                 <div class="folder">
                     <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
                     <div class="folder-content">
-                        File laporan pertanggungjawaban kegiatan MPK.<br>
-                        <a href="#" target="_buka">🔗 Buka Tautan LPJ (Google Drive)</a>
+                        Belum ada file LPJ yang diunggah.
                     </div>
                 </div>
             </div>
@@ -433,7 +441,6 @@
             let content = btn.nextElementSibling;
             let isOpen = content.style.display === "block";
 
-            // Tutup semua folder lain dalam satu card jika ingin eksklusif (opsional, dibiarkan bebas biar nyaman)
             content.style.display = isOpen ? "none" : "block";
             btn.querySelector('span').innerText = isOpen ? "+" : "-";
         }
