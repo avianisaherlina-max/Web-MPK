@@ -25,7 +25,6 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            /* Bagian background ini yang diganti ke link Pinterest kamu */
             background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
                               url('https://i.pinimg.com/736x/9f/20/a6/9f20a6a451fd9a56c79cbe0001003125.jpg');
             background-size: cover;
@@ -71,6 +70,69 @@
             text-align: center;
             margin-bottom: 20px;
             line-height: 1.4;
+        }
+
+        /* Form Login */
+        .login-box {
+            display: block;
+        }
+
+        .main-app {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .login-btn, .submit-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover, .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
         }
 
         /* Navigasi Menu Modern */
@@ -267,119 +329,171 @@
 <body>
 
     <div class="container">
-        <div class="header-title">
-            <h1>SMKS Tunas Harapan Pasar Kemis</h1>
-            <h2>Organisasi MPK</h2>
-        </div>
-        
-        <p class="subtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
-
-        <!-- Navigasi Menu -->
-        <div class="menu-nav">
-            <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
-            <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
-            <button class="menu-btn" onclick="switchTab(event, 'tautan')">Tautan<span>03</span></button>
-            <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
-        </div>
-
-        <!-- Konten 1: Beranda -->
-        <div id="beranda" class="tab-content active">
-            <div class="card">
-                <h3>✨ Selamat Datang</h3>
-                <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
+        <!-- HALAMAN LOGIN -->
+        <div id="loginSection" class="login-box">
+            <div class="header-title">
+                <h1>SMKS Tunas Harapan Pasar Kemis</h1>
+                <h2>Login Akses MPK</h2>
             </div>
+            <p class="subtitle">Silakan masukkan username dan password sesuai hak akses Anda.</p>
+            
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="usernameInput" placeholder="Masukkan username...">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="passwordInput" placeholder="Masukkan password...">
+            </div>
+            <button class="login-btn" onclick="handleLogin()">Masuk</button>
+            <div id="errorMsg" class="error-msg">Username atau Password salah!</div>
         </div>
 
-        <!-- Konten 2: Event -->
-        <div id="event" class="tab-content">
-            <div class="card">
-                <h3>📅 Arsip Event & Kegiatan</h3>
-                <p>Ketuk salah satu folder acara untuk melihat dokumentasinya:</p>
-                <div class="folder-container">
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button><div class="folder-content">Dokumentasi dan arsip kegiatan lomba Agustusan akan segera diunggah di sini.</div></div>
-                    
+        <!-- HALAMAN UTAMA APLIKASI (Tersembunyi sebelum login) -->
+        <div id="mainAppSection" class="main-app">
+            <div class="header-title">
+                <h1>SMKS Tunas Harapan Pasar Kemis</h1>
+                <h2 id="appTitle">Organisasi MPK</h2>
+            </div>
+            
+            <p class="subtitle" id="appSubtitle">Pusat informasi resmi, tautan dokumen, dan struktur kepengurusan MPK.</p>
+
+            <!-- Navigasi Menu untuk OSIS/MPK -->
+            <div id="osismpkNav" class="menu-nav" style="display: none;">
+                <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
+                <button class="menu-btn" onclick="switchTab(event, 'event')">Event<span>02</span></button>
+                <button class="menu-btn" onclick="switchTab(event, 'tautan')">Tautan<span>03</span></button>
+                <button class="menu-btn" onclick="switchTab(event, 'biodata')">Biodata<span>04</span></button>
+            </div>
+
+            <!-- Navigasi Menu untuk Siswa Biasa (Hanya Aspirasi) -->
+            <div id="siswaNav" class="menu-nav" style="display: none;">
+                <button class="menu-btn active" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>01</span></button>
+            </div>
+
+            <!-- Konten Tab Aspirasi (Khusus Siswa Biasa) -->
+            <div id="aspirasi" class="tab-content">
+                <div class="card">
+                    <h3>💬 Kotak Aspirasi Siswa</h3>
+                    <p>Sampaikan kritik, saran, atau masukan untuk kemajuan sekolah kita melalui formulir di bawah ini:</p>
+                    <form onsubmit="submitAspirasi(event)">
+                        <div class="form-group">
+                            <label>Kelas</label>
+                            <input type="text" id="aspKelas" placeholder="Contoh: XI TKJ 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" id="aspNama" placeholder="Nama lengkap kamu..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Hal yang ingin disampaikan</label>
+                            <textarea id="aspPesan" rows="4" placeholder="Tuliskan aspirasi kamu di sini..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Kirim Aspirasi</button>
+                    </form>
+                    <div id="successMsg" style="color: #4bb543; font-size: 0.85rem; text-align: center; margin-top: 10px; display: none;">Aspirasi berhasil dikirim! Terima kasih.</div>
+                </div>
+            </div>
+
+            <!-- Konten 1: Beranda -->
+            <div id="beranda" class="tab-content">
+                <div class="card">
+                    <h3>✨ Selamat Datang</h3>
+                    <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
+                </div>
+            </div>
+
+            <!-- Konten 2: Event -->
+            <div id="event" class="tab-content">
+                <div class="card">
+                    <h3>📅 Arsip Event & Kegiatan</h3>
+                    <p>Ketuk salah satu folder acara untuk melihat dokumentasinya:</p>
+                    <div class="folder-container">
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Lomba Agustusan 2026 <span>+</span></button><div class="folder-content">Dokumentasi dan arsip kegiatan lomba Agustusan akan segera diunggah di sini.</div></div>
+                        
+                        <div class="folder">
+                            <button class="folder-header" onclick="toggleFolder(this)">MPLS Tahun 2026 <span>+</span></button>
+                            <div class="folder-content">
+                                Dokumentasi kegiatan Masa Pengenalan Lingkungan Sekolah:
+                                <a href="https://drive.google.com/drive/mobile/folders/1ErQ8rkKUItHpTxT8aVD5JzaFfjAgjDsm?usp=sharing" target="_blank" class="file-link">📁 Day 1</a>
+                                <a href="https://drive.google.com/drive/mobile/folders/1kPbyLRIFQZ6PigK64T13aHNPb3U8PAgA?usp=sharing" target="_blank" class="file-link">📁 Day 2</a>
+                                <a href="https://drive.google.com/drive/mobile/folders/1bqa8oP9V2c6HZ-3chb5WzYZ73P4ZN75S?usp=sharing" target="_blank" class="file-link">📁 Day 3</a>
+                                <a href="https://drive.google.com/drive/mobile/folders/1Y3p79NkuFm5k3rKHHn4hQLEe0nBB_3lI?usp=sharing" target="_blank" class="file-link">📁 Day 4</a>
+                                <a href="https://drive.google.com/drive/mobile/folders/1aZHO_KxCg3qc2ort2caBZ2rohFsR6rM4?usp=sharing" target="_blank" class="file-link">📁 Day 5</a>
+                            </div>
+                        </div>
+
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan keagamaan Pesantren Kilat.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Isra Mi'raj Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Isra Mi'raj Nabi Muhammad SAW.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Apel Pagi dan Senam Ceria <span>+</span></button><div class="folder-content">Dokumentasi kegiatan rutinitas apel dan senam bersama.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Penilaian Seni Tari <span>+</span></button><div class="folder-content">Dokumentasi ujian praktek dan penilaian seni tari siswa.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Classmeeting 2025 <span>+</span></button><div class="folder-content">Arsip perlombaan antar kelas semester akhir 2025.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Menanam Pohon Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi aksi pelestarian lingkungan sekolah.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Guru Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi perayaan dan apresiasi Hari Guru Nasional.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Pahlawan Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Hari Pahlawan.</div></div>
+                        <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Sumpah Pemuda Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan peringatan Sumpah Pemuda.</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Konten 3: Tautan -->
+            <div id="tautan" class="tab-content">
+                <div class="card">
+                    <h3>📁 Dokumen Administrasi</h3>
+                    <p>Ketuk folder di bawah untuk mengakses berkas:</p>
                     <div class="folder">
-                        <button class="folder-header" onclick="toggleFolder(this)">MPLS Tahun 2026 <span>+</span></button>
+                        <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
                         <div class="folder-content">
-                            Dokumentasi kegiatan Masa Pengenalan Lingkungan Sekolah:
-                            <a href="https://drive.google.com/drive/mobile/folders/1ErQ8rkKUItHpTxT8aVD5JzaFfjAgjDsm?usp=sharing" target="_blank" class="file-link">📁 Day 1</a>
-                            <a href="https://drive.google.com/drive/mobile/folders/1kPbyLRIFQZ6PigK64T13aHNPb3U8PAgA?usp=sharing" target="_blank" class="file-link">📁 Day 2</a>
-                            <a href="https://drive.google.com/drive/mobile/folders/1bqa8oP9V2c6HZ-3chb5WzYZ73P4ZN75S?usp=sharing" target="_blank" class="file-link">📁 Day 3</a>
-                            <a href="https://drive.google.com/drive/mobile/folders/1Y3p79NkuFm5k3rKHHn4hQLEe0nBB_3lI?usp=sharing" target="_blank" class="file-link">📁 Day 4</a>
-                            <a href="https://drive.google.com/drive/mobile/folders/1aZHO_KxCg3qc2ort2caBZ2rohFsR6rM4?usp=sharing" target="_blank" class="file-link">📁 Day 5</a>
+                            Berikut adalah file proposal kegiatan yang tersedia:
+                            <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">📝 Proposal MPK</a>
                         </div>
                     </div>
-
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Pesantren Kilat Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan keagamaan Pesantren Kilat.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Isra Mi'raj Tahun 2026 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Isra Mi'raj Nabi Muhammad SAW.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Apel Pagi dan Senam Ceria <span>+</span></button><div class="folder-content">Dokumentasi kegiatan rutinitas apel dan senam bersama.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Penilaian Seni Tari <span>+</span></button><div class="folder-content">Dokumentasi ujian praktek dan penilaian seni tari siswa.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Classmeeting 2025 <span>+</span></button><div class="folder-content">Arsip perlombaan antar kelas semester akhir 2025.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Menanam Pohon Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi aksi pelestarian lingkungan sekolah.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Guru Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi perayaan dan apresiasi Hari Guru Nasional.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Pahlawan Nasional Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi peringatan Hari Pahlawan.</div></div>
-                    <div class="folder"><button class="folder-header" onclick="toggleFolder(this)">Hari Sumpah Pemuda Tahun 2025 <span>+</span></button><div class="folder-content">Dokumentasi kegiatan peringatan Sumpah Pemuda.</div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Konten 3: Tautan -->
-        <div id="tautan" class="tab-content">
-            <div class="card">
-                <h3>📁 Dokumen Administrasi</h3>
-                <p>Ketuk folder di bawah untuk mengakses berkas:</p>
-                <div class="folder">
-                    <button class="folder-header" onclick="toggleFolder(this)">📄 Proposal Kegiatan <span>+</span></button>
-                    <div class="folder-content">
-                        Berikut adalah file proposal kegiatan yang tersedia:
-                        <a href="https://docs.google.com/document/d/1IWuxihNN0ZyxogY3lX7t9f31yM-t9e2TEN8vg2KFdRU/edit?usp=sharing" target="_blank" class="file-link">📝 Proposal MPK</a>
+                    <div class="folder">
+                        <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
+                        <div class="folder-content">Belum ada file LPJ yang diunggah.</div>
                     </div>
                 </div>
-                <div class="folder">
-                    <button class="folder-header" onclick="toggleFolder(this)">📊 Laporan Pertanggung Jawaban (LPJ) <span>+</span></button>
-                    <div class="folder-content">Belum ada file LPJ yang diunggah.</div>
-                </div>
             </div>
-        </div>
 
-        <!-- Konten 4: Biodata -->
-        <div id="biodata" class="tab-content">
-            <div class="card">
-                <h3>👑 Struktur Kepengurusan MPK</h3>
-                <div class="biodata-section">
-                    <h4>Pengurus Inti</h4>
-                    <ul class="biodata-list">
-                        <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
-                        <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
-                        <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
-                        <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
-                        <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
-                    </ul>
-                </div>
-                <div class="biodata-section">
-                    <h4>Komisi 1</h4>
-                    <ul class="biodata-list">
-                        <li>M. Andra Ary Cesanov</li>
-                        <li>Andika Dwi Kuncoro</li>
-                        <li>Yoga Aditya Pratama</li>
-                        <li>Fahrel</li>
-                    </ul>
-                </div>
-                <div class="biodata-section">
-                    <h4>Komisi 2</h4>
-                    <ul class="biodata-list">
-                        <li>Darrel Dewangga Arjuna</li>
-                        <li>Hilal Lee Diar Sulaeman Malik</li>
-                        <li>Alfirza Nurhidayahtulloh Arrahman</li>
-                    </ul>
-                </div>
-                <div class="biodata-section">
-                    <h4>Komisi 3</h4>
-                    <ul class="biodata-list">
-                        <li>Cut Annisa Syarifuddin</li>
-                        <li>Muhamad Rizik</li>
-                        <li>Aisy Galuh Khaerunnisa Putri</li>
-                    </ul>
+            <!-- Konten 4: Biodata -->
+            <div id="biodata" class="tab-content">
+                <div class="card">
+                    <h3>👑 Struktur Kepengurusan MPK</h3>
+                    <div class="biodata-section">
+                        <h4>Pengurus Inti</h4>
+                        <ul class="biodata-list">
+                            <li><span>Ketua</span> <strong>Giyas Nabil Qurisqi</strong></li>
+                            <li><span>Wakil Ketua</span> Mutiara Khoirunnisa</li>
+                            <li><span>Sekretaris 1</span> Alifia Nabila Putri</li>
+                            <li><span>Sekretaris 2</span> Aisyah Firdasari</li>
+                            <li><span>Bendahara</span> Gina Qolbiyatul Latifah</li>
+                        </ul>
+                    </div>
+                    <div class="biodata-section">
+                        <h4>Komisi 1</h4>
+                        <ul class="biodata-list">
+                            <li>M. Andra Ary Cesanov</li>
+                            <li>Andika Dwi Kuncoro</li>
+                            <li>Yoga Aditya Pratama</li>
+                            <li>Fahrel</li>
+                        </ul>
+                    </div>
+                    <div class="biodata-section">
+                        <h4>Komisi 2</h4>
+                        <ul class="biodata-list">
+                            <li>Darrel Dewangga Arjuna</li>
+                            <li>Hilal Lee Diar Sulaeman Malik</li>
+                            <li>Alfirza Nurhidayahtulloh Arrahman</li>
+                        </ul>
+                    </div>
+                    <div class="biodata-section">
+                        <h4>Komisi 3</h4>
+                        <ul class="biodata-list">
+                            <li>Cut Annisa Syarifuddin</li>
+                            <li>Muhamad Rizik</li>
+                            <li>Aisy Galuh Khaerunnisa Putri</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -387,6 +501,46 @@
 
     <!-- Script JavaScript -->
     <script>
+        function handleLogin() {
+            let user = document.getElementById('usernameInput').value.trim();
+            let pass = document.getElementById('passwordInput').value.trim();
+            let errorMsg = document.getElementById('errorMsg');
+
+            if (user === "OSISMPK" && pass === "SMKSTUNASHARAPA") {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('mainAppSection').style.display = 'block';
+                document.getElementById('osismpkNav').style.display = 'flex';
+                document.getElementById('beranda').classList.add('active');
+            } else if (user === "SISWASISWI" && pass === "SMKSTUNASHARAPAN") {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('mainAppSection').style.display = 'block';
+                document.getElementById('appTitle').innerText = "Portal Aspirasi Siswa";
+                document.getElementById('appSubtitle').innerText = "Sampaikan aspirasimu untuk kemajuan sekolah bersama.";
+                document.getElementById('siswaNav').style.display = 'flex';
+                document.getElementById('aspirasi').classList.add('active');
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function submitAspirasi(e) {
+            e.preventDefault();
+            let kelas = document.getElementById('aspKelas').value;
+            let nama = document.getElementById('aspNama').value;
+            let pesan = document.getElementById('aspPesan').value;
+
+            // Di sini kamu bisa tambahkan logika pengiriman data (misal ke WhatsApp/Database jika diperlukan)
+            document.getElementById('successMsg').style.display = 'block';
+            
+            // Reset form setelah beberapa detik
+            setTimeout(() => {
+                document.getElementById('aspKelas').value = '';
+                document.getElementById('aspNama').value = '';
+                document.getElementById('aspPesan').value = '';
+                document.getElementById('successMsg').style.display = 'none';
+            }, 3000);
+        }
+
         function switchTab(evt, tabName) {
             let i, tabContent, menuBtns;
             tabContent = document.getElementsByClassName("tab-content");
@@ -396,6 +550,7 @@
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
+
         function toggleFolder(btn) {
             let content = btn.nextElementSibling;
             let isOpen = content.style.display === "block";
