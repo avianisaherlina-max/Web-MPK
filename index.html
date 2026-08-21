@@ -423,11 +423,13 @@
                 <!-- Diisi via Javascript tergantung role -->
             </div>
 
-            <!-- Konten 1: Beranda -->
+            <!-- Konten 1: Beranda / Informasi Acara -->
             <div id="beranda" class="tab-content active">
                 <div class="card">
-                    <h3>✨ Selamat Datang</h3>
-                    <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
+                    <h3 id="beranda-title">✨ Selamat Datang</h3>
+                    <div id="beranda-body">
+                        <p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>
+                    </div>
                 </div>
             </div>
 
@@ -568,8 +570,14 @@
 
             let navContainer = document.getElementById("menuNavContainer");
             let aspirasiCard = document.getElementById("aspirasi-card-container");
+            let bTitle = document.getElementById("beranda-title");
+            let bBody = document.getElementById("beranda-body");
 
             if (role === "osis") {
+                // Label Beranda standar untuk OSIS
+                bTitle.innerText = "✨ Selamat Datang";
+                bBody.innerHTML = `<p>Halaman ini merupakan arsip digital resmi Organisasi MPK SMKS Tunas Harapan Pasar Kemis. Temukan profil organisasi, dokumentasi kegiatan, tautan penting, hingga struktur pengurus lengkap di sini.</p>`;
+
                 // 5 Tab untuk OSIS/MPK
                 navContainer.innerHTML = `
                     <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
@@ -583,9 +591,24 @@
                 renderAspirasiListForAdmin();
 
             } else {
-                // Tab khusus untuk Siswa Biasa (Hanya Beranda & Aspirasi Input)
+                // Ubah Beranda menjadi Informasi Acara untuk Siswa
+                bTitle.innerText = "📢 Informasi Acara";
+                bBody.innerHTML = `
+                    <p>Pantau informasi dan pengumuman acara penting sekolah di bawah ini:</p>
+                    <div class="folder-container" style="max-height: 280px;">
+                        <div class="folder">
+                            <button class="folder-header" onclick="toggleFolder(this)">Lomba 17 Agustus 2026 <span>+</span></button>
+                            <div class="folder-content">
+                                Informasi seputar pelaksanaan Lomba 17 Agustus 2026: 
+                                <p style="margin-top: 8px; color: var(--text-color);">Jangan lupa persiapkan perlengkapan lomba dan patuhi aturan kostum yang telah diumumkan oleh panitia kelas/sekolah!</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Tab khusus untuk Siswa Biasa (Informasi Acara & Aspirasi)
                 navContainer.innerHTML = `
-                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Beranda<span>01</span></button>
+                    <button class="menu-btn active" onclick="switchTab(event, 'beranda')">Informasi Acara<span>01</span></button>
                     <button class="menu-btn" onclick="switchTab(event, 'aspirasi')">Aspirasi<span>02</span></button>
                 `;
 
